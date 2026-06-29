@@ -58,16 +58,18 @@ root.right.right = TreeNode(7)
 class Solution:
     def isBalanced(self, root: Optional[TreeNode]) -> bool:
 
-        
+        return self.height(root) != -1
+
+    def height(self, root: Optional[TreeNode]) -> int:
         if root is None:
             return 0
         
 
-        left_subtree = self.isBalanced(root.left)
+        left_subtree = self.height(root.left)
 
         if left_subtree == -1:
             return -1 
-        right_subtree = self.isBalanced(root.right)
+        right_subtree = self.height(root.right)
 
         if right_subtree == -1:
             return -1
@@ -82,6 +84,19 @@ class Solution:
 
 obj = Solution()
 print(obj.isBalanced(root))
+
+
+
+# Quick summary
+# Complexity	Reason
+# Time
+# O(n)
+# One DFS pass; each node processed once
+# Space
+# O(h), worst O(n)
+# Recursion stack depth = tree height
+# Interview one-liner
+# “I do a single post-order traversal that returns subtree height or -1 if unbalanced. Time is O(n) because each node is visited once. Space is O(h) for the recursion stack, O(n) in the worst case on a skewed tree.”
         
         
         
