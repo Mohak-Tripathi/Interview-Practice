@@ -4,18 +4,18 @@ class Solution:
     def __init__(self):
         self.res = []
    
-    def preorderTraversal(self, root) -> List[int]:
-        
+    def inorderTraversal(self, root) -> List[int]:
         
         if root is None:
             return []
         
-        self.res.append(root.val)
         
         if root.left:
-            self.preorderTraversal(root.left)
+            self.inorderTraversal(root.left)
+        self.res.append(root.val)
         if root.right:
-            self.preorderTraversal(root.right)
+            self.inorderTraversal(root.right)
+        
         
         return self.res
 
@@ -36,4 +36,4 @@ root.left.left = TreeNode(4)
 root.left.right = TreeNode(5)
 
 obj = Solution()
-print(obj.preorderTraversal(root))
+print(obj.inorderTraversal(root))
