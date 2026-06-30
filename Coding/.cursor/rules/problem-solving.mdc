@@ -1,0 +1,72 @@
+---
+description: Structure for solving new coding interview problems in the Coding folder
+globs: Coding/**
+alwaysApply: false
+---
+
+# Coding Problem Solving Structure
+
+When solving a **new problem** in `Coding/`, always follow this structure — in discussion and in the solution file.
+
+## Required Sections (in order)
+
+### 1. Brute Force (when possible)
+
+- Present at least one brute-force approach before the optimal solution.
+- Some problems or data structures (e.g. trees, graphs) may not have a meaningful brute force — say so briefly and explain why, then move on.
+- Include:
+  - **Intuition** — why this approach works and how you thought of it
+  - **Approach** — step-by-step logic
+  - **Time complexity** — with brief justification
+  - **Space complexity** — with brief justification
+  - **Code** (when implementing)
+
+### 2. Optimal Solution
+
+- Present the best (or intended) solution after brute force.
+- Include:
+  - **Intuition** — key insight that makes it better than brute force
+  - **Approach** — step-by-step logic
+  - **Time complexity** — with brief justification
+  - **Space complexity** — with brief justification
+  - **Code**
+
+### 3. Code Quality Review
+
+After the solution, call out if there is a **better way to write the code** — cleaner style, fewer edge-case bugs, more Pythonic idioms, simpler state, or an equivalent formulation that is easier to reason about. Be specific; don't just say "it looks fine."
+
+## File Layout Template
+
+Use this comment structure at the top of new solution files:
+
+```python
+# --- Problem: <title> ---
+# <problem statement / link>
+
+# === BRUTE FORCE ===
+# Intuition:
+# Approach:
+# Time:  O(?)
+# Space: O(?)
+
+# === OPTIMAL ===
+# Intuition:
+# Approach:
+# Time:  O(?)
+# Space: O(?)
+
+# === CODE REVIEW ===
+# Better ways to write this: <notes or "current approach is idiomatic">
+```
+
+## Agent Behavior
+
+When the user starts a new problem in `Coding/`:
+
+1. Walk through brute force first (or explain why it doesn't apply).
+2. Then derive and explain the optimal solution.
+3. State time/space for **both** approaches.
+4. Give intuition for **both** approaches.
+5. End with concrete suggestions for better code style or structure if any exist.
+
+Do not skip straight to optimal code without the analysis unless the user explicitly asks for code only.
