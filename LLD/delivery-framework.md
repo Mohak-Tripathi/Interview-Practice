@@ -2,6 +2,8 @@
 *Hello Interview — "Low-Level Design in a Hurry," condensed.*
 *Doubles as study reference + self-review rubric. ~35 min total. You lose points on pacing, not knowledge.*
 
+**This folder:** `delivery-framework.md` (you, pacing + rubric) · `.cursor/rules/design-principles.mdc` (agent, OOP/SOLID coaching + post-review)
+
 ---
 
 ## Pacing card
@@ -52,4 +54,43 @@ Trace one concrete, non-trivial scenario tick-by-tick — initial state, each op
 
 ---
 
-*Self-review use: after a blind attempt, score each step ✅/❌ against the "Followed / Lost points" lines, then list the 3 questions an interviewer would ask about the design's weak seams.*
+## 6 · Design Principles Review (~after implementation)
+
+*Learn by doing — don't memorize pattern names. Apply concepts when requirements demand them; the agent coaches during design and reviews after.*
+
+### Mindset
+- **KISS, DRY, YAGNI, Separation of Concerns, Law of Demeter** — start simple; abstract only when variation or duplication forces it.
+- **OOP shows in the design:** encapsulation (hide state, expose behavior), abstraction (interfaces for variation), polymorphism (no type-switching), composition over inheritance.
+- **SOLID** — don't recite; use when it clarifies a choice (SRP for focused classes, OCP for extension seams, etc.).
+- **Patterns:** 0–2 per problem is normal. Name the pattern *after* the design fits, not before.
+
+### When to reach for what (quick map)
+| Requirement signal | Natural direction |
+|---|---|
+| Multiple interchangeable behaviors | Interface + polymorphism (Strategy) |
+| Caller shouldn't pick concrete class | Factory |
+| Many optional fields / messy construction | Builder |
+| Layer behaviors at runtime | Decorator |
+| One simple entry over complex internals | Facade |
+| Behavior depends on state + transitions | State machine |
+| Many listeners on one event | Observer |
+
+### Self-review rubric (add to step-by-step ✅/❌)
+- ✅ **Encapsulation:** fields private; rules on the owning class; no logic leaking to orchestrator.
+- ✅ **Right abstraction:** interface only where requirements vary; no switch-on-type where polymorphism is obvious.
+- ✅ **Composition:** no deep inheritance trees; interfaces preferred.
+- ✅ **Appropriate complexity:** no pattern stuffing; no god-class; every class traces to a requirement.
+- ❌ **Lost points:** forced Factory/Strategy with one implementation; public mutable state; orchestrator enforces entity rules; missing obvious interface when requirements say "support multiple X."
+
+### Post-session Design Review (agent delivers)
+1. **Score X/10** with one-line justification.
+2. **Strengths** — what was correctly applied.
+3. **Gaps** — bare-minimum misses only (obvious interface missed, encapsulation broken, etc.).
+4. **Over-engineering** — patterns/classes that don't earn their place.
+5. **Top 3 interviewer follow-ups** on weak seams.
+
+*Cursor rule `.cursor/rules/design-principles.mdc` (in this folder) automates coaching during LLD work and this review after implementation.*
+
+---
+
+*Self-review use: after a blind attempt, score each step ✅/❌ against the "Followed / Lost points" lines in sections 1–5, then run section 6 Design Principles Review, then list the 3 questions an interviewer would ask about the design's weak seams.*

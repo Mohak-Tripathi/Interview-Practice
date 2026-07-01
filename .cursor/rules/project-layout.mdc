@@ -1,0 +1,15 @@
+---
+description: Where Coding vs LLD rules, frameworks, and solutions live in this repo
+alwaysApply: true
+---
+
+# Interview Prep Layout
+
+Each track is self-contained — rules and frameworks live **inside** the track folder.
+
+| Track | Solutions | Human reference | Cursor agent rule |
+|-------|-----------|-----------------|-------------------|
+| **Coding/** (DSA) | `Coding/**/*.py` | — | `Coding/.cursor/rules/problem-solving.mdc` |
+| **LLD/** (low-level design) | `LLD/**/*` | `LLD/delivery-framework.md` | `LLD/.cursor/rules/design-principles.mdc` |
+
+When working in a track, follow that folder's rule and framework. Do not mix Coding structure into LLD or vice versa.

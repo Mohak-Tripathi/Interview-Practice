@@ -8,6 +8,8 @@ alwaysApply: false
 
 When solving a **new problem** in `Coding/`, always follow this structure — in discussion and in the solution file.
 
+**This folder:** `.cursor/rules/problem-solving.mdc` (agent rule for DSA solutions in `Coding/`)
+
 ## Required Sections (in order)
 
 ### 1. Brute Force (when possible)

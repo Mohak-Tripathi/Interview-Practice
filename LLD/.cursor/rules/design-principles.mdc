@@ -1,0 +1,90 @@
+---
+description: LLD design coaching — apply OOP/SOLID/patterns naturally, review without stuffing
+globs: LLD/**
+alwaysApply: false
+---
+
+# LLD Design Principles Coaching
+
+Follow `delivery-framework.md` (same folder) for pacing and structure. This rule adds **how** to apply OOP, SOLID, and patterns — learn by doing, not by memorizing names.
+
+## Core Mindset
+
+- Concepts show through **how you design**, not what you call things. Never recite acronyms unless the user asks.
+- **KISS → DRY → YAGNI.** Start simple; add abstraction only when a requirement forces variation or duplication hurts.
+- **0–2 patterns per design** is normal. Three or more usually means over-engineering.
+- **Pattern stuffing loses points.** Forcing Strategy/Factory/Observer to "show knowledge" is worse than omitting a pattern on a simple problem.
+
+## During Design (proactive coaching)
+
+When requirements reveal a seam, **point the user in that direction** — one short hint, not a lecture:
+
+| Signal in requirements | Think in this direction |
+|---|---|
+| Multiple interchangeable behaviors (payment types, pricing rules, validators) | Abstraction + polymorphism — interface, let objects handle themselves; avoid `if type == …` / big switch |
+| Callers shouldn't know which concrete class is created | Factory (or simple factory method on the orchestrator) |
+| Object has many optional fields or messy construction | Builder |
+| Layer optional behaviors at runtime without subclass explosion | Decorator |
+| Hide internal complexity behind one entry point | Facade (often the orchestrator already is one) |
+| Behavior depends on state with messy transitions | State machine |
+| Multiple components react to one event | Observer |
+| Object reaches deep into another's internals | Law of Demeter violation — add a method on the owner instead |
+
+**OOP defaults (apply unless the problem is trivial):**
+- **Encapsulation:** private fields, public behavior; no anemic data bags with all logic in the orchestrator.
+- **Tell, Don't Ask:** rules live with the entity that owns the state (already in delivery framework).
+- **Composition over inheritance:** interfaces first; inheritance only for stable shared implementation.
+
+**SOLID — flag only when relevant, not as a checklist recital:**
+- **SRP:** class has one reason to change; split god-classes.
+- **OCP:** new variants plug in without editing existing classes — usually via interface.
+- **LSP / ISP / DIP:** mention only when a concrete design choice violates them (e.g., subclass breaks parent contract, fat interface, business logic hard-wired to one implementation).
+
+## After Implementation (mandatory design review)
+
+When the user finishes an LLD (or asks for review), deliver a **Design Review** section:
+
+### 1. Score (X/10)
+Brief justification tied to interview rubric: requirements clarity, entity ownership, encapsulation, extensibility seams, pacing-appropriate complexity.
+
+### 2. What landed well
+List 2–4 things correctly applied — e.g., "payment behavior behind `PaymentMethod` interface; `ParkingLot` orchestrates without knowing vehicle types."
+
+### 3. Gaps (bare minimum only)
+Flag **only** places where a simple design genuinely needed abstraction/encapsulation and it's missing — e.g., switch on types where an interface is obvious, public mutable fields, orchestrator doing entity-level rules. Frame as: *"Requirement X implies variation here → a `Y` interface would make extension cheap."*
+
+Do **not** suggest patterns that don't match the problem.
+
+### 4. Over-engineering (if any)
+Call out forced patterns, unnecessary interfaces, or classes that don't trace to a requirement.
+
+### 5. Top 3 interviewer follow-ups
+Extension or "what if" questions targeting the design's weak seams.
+
+## Review template (use in chat or as file footer)
+
+```markdown
+## Design Review
+**Score:** X/10 — <one line why>
+
+**Strengths:**
+- ...
+
+**Gaps (apply if genuinely needed):**
+- ...
+
+**Over-engineering (remove if any):**
+- ...
+
+**Interviewer would ask:**
+1. ...
+2. ...
+3. ...
+```
+
+## Agent behavior summary
+
+1. **While solving:** follow delivery framework; drop short, contextual hints when a principle/pattern naturally fits — *"multiple notification channels → think interface here."*
+2. **Don't block progress** with theory; hint, then let the user design.
+3. **After implementation:** always run the Design Review unless the user is mid-design and asked to hold off.
+4. **On improvement passes:** re-score; confirm gaps are closed without new stuffing.
