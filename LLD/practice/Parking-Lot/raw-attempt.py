@@ -17,3 +17,5 @@
 # - Security cameras or monitoring
 # - UI/display systems
 # - Reservations or pre-booking
+
+
