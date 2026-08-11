@@ -455,29 +455,109 @@ print(obj.checkSubsequenceSum([4, 9, 2, 5, 1] , 10))
 
 
 
-class Solution:
-    def climbStairs(self, n: int) -> int:
+# class Solution:
+#     def climbStairs(self, n: int) -> int:
 
 
 
-        def recursiveFunction(n, i,dp):
+#         def recursiveFunction(n, i,dp):
 
-            if i ==n:
-                return 1
-            if i >n:
-                return 0
+#             if i ==n:
+#                 return 1
+#             if i >n:
+#                 return 0
 
             
-            if dp[i] != -1:
-                return dp[i]
-            dp[i] = recursiveFunction(n, i+1, dp) + recursiveFunction(n,i+2, dp)
-            return dp[i]
+#             if dp[i] != -1:
+#                 return dp[i]
+#             dp[i] = recursiveFunction(n, i+1, dp) + recursiveFunction(n,i+2, dp)
+#             return dp[i]
 
              
 
-        dp = [-1] * (n+1)
-        return recursiveFunction(n,0, dp)
+#         dp = [-1] * (n+1)
+#         return recursiveFunction(n,0, dp)
         
 
+# obj = Solution()
+# print(obj.climbStairs(3))
+
+
+
+from typing import List
+
+
+
+class Solution:
+    def combinationSum3(self, k: int, n: int) -> List[List[int]]:
+
+
+
+        def backtrack(n,k,ans,ds, i):
+
+            if len(ds) == k and sum(ds)==n:
+
+                ans.append(ds.copy())
+                return 
+            
+            if sum(ds) > n:
+                return 
+
+            
+            for start in range(i, 10):
+
+                ds.append(start)
+                backtrack(n,k,ans,ds, start+1)
+                ds.pop()
+
+        ans = []
+        ds = []
+        backtrack(n,k,ans,ds, 1)
+        return ans
+
 obj = Solution()
-print(obj.climbStairs(3))
+print(obj.combinationSum3(3, 9))
+
+
+
+
+
+
+class Solution:
+    def partition(self, s: str) -> List[List[str]]:
+
+        def ifPalindrome(st):
+            
+            for i in range(len(st)//2):
+                if st[i] != st[len(st)-1-i]:
+                    return False
+            
+            return True
+
+
+        def palindromicPartition(start, path,s,ans):
+
+            if start == len(s):
+
+                ans.append(path.copy())
+                return
+            
+            for i in range(start, len(s)):
+                piece = s[start:i+1]
+
+                if ifPalindrome(piece):
+                    path.append(piece)
+                    palindromicPartition(i+1, path,s,ans)
+                    path.pop()
+            
+
+        path = []
+        ans = []
+        palindromicPartition(0, path,s,ans)
+
+        return ans
+        
+
+        
+obj = Solution()
+print(obj.partition("aab"))
