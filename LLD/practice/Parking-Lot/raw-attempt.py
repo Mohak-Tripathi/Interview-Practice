@@ -521,7 +521,7 @@ print(obj.combinationSum3(3, 9))
 
 
 
-
+# 
 
 class Solution:
     def partition(self, s: str) -> List[List[str]]:
@@ -561,3 +561,233 @@ class Solution:
         
 obj = Solution()
 print(obj.partition("aab"))
+
+
+
+
+
+from typing import List
+
+
+class Solution:
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+
+        #powerset
+
+        n = len(nums)
+        ans = []
+
+        subsetsCount = 1 << n
+
+        for num in range(subsetsCount):
+
+            subset = []
+
+            for j in range(n):
+                if (num & (1 << j)):
+                    subset.append(nums[j])
+            
+            ans.append(subset)
+        
+        return ans
+        
+obj = Solution()
+print(obj.subsets([1, 2, 3]))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# ==================
+
+# Job sequencing Problem
+# Subscribe to TUF+
+
+# Hints
+# Company
+# Given an 2D array Jobs of size Nx3, where Jobs[i][0] represents JobID , Jobs[i][1] represents Deadline , Jobs[i][2] represents Profit associated with that job. Each Job takes 1 unit of time to complete and only one job can be scheduled at a time.
+
+
+
+# The profit associated with a job is earned only if it is completed by its deadline. Find the number of jobs and maximum profit.
+
+
+# Example 1
+
+# Input : Jobs = [ [1, 4, 20] , [2, 1, 10] , [3, 1, 40] , [4, 1, 30] ]
+
+# Output : 2 60
+
+# Explanation : Job with JobID 3 can be performed at time t=1 giving a profit of 40.
+
+# Job with JobID 1 can be performed at time t=2 giving a profit of 20.
+
+# No more jobs can be scheduled, So total Profit = 40 + 20 => 60.
+
+# Total number of jobs completed are two, JobID 1, JobID 3.
+
+# So answer is 2 60.
+
+class Solution:
+    def JobScheduling(self, Jobs):
+        #your code goes here
+
+        count, max_profit = 0, 0 
+        n = len(Jobs)
+
+        max_deadline = 0 
+        for idx, deadline, profit  in Jobs:
+            max_deadline = max(max_deadline, deadline)
+            
+        job_assertion = [-1] * (max_deadline + 1)
+
+
+        Jobs.sort(key=lambda x:x[2], reverse=True)
+        for idx, deadline, profit  in Jobs:
+
+            while deadline > 0 and job_assertion[deadline] != -1:
+                deadline -=1
+            
+            if deadline >0:
+                job_assertion[deadline] = idx 
+                count += 1
+                max_profit += profit 
+        
+        return count, max_profit
+
+obj = Solution()
+print(obj.JobScheduling( [ [1, 2, 100] , [2, 1, 19] , [3, 2, 27] , [4, 1, 25] , [5, 1, 15] ]))
+
+
+
+
+class Solution:
+    def findPages(self, nums, m):
+
+        def allocation_posssibility(nums, k, m):
+
+            pages = 0
+            count = 1
+
+            for i in range(len(nums)):
+
+                current_pages = pages + nums[i]
+
+                if current_pages <= k:
+                    pages += nums[i]
+                else:
+                    pages = nums[i]
+                    count+=1
+                
+            print(count, pages)
+            print("--------------------------------")
+            return True if count <= m else False
+                
+
+        n = len(nums)
+        if m > n:
+            return -1
+        
+        low = max(nums)
+        high = sum(nums)
+        ans = -1
+
+        while low <= high:
+
+            k = (low+high)//2
+
+    
+            if allocation_posssibility(nums,k,m):
+                ans = k
+                high = k -1
+            else:
+                low = k + 1
+        
+        return ans
+        
+
+
+
+obj = Solution()
+print(obj.findPages([12, 34, 67, 90], 2))
+
+
+
+
+
+
+
+
+class Solution:
+    def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
+        n = len(matrix)
+        m = len(matrix[0])
+        top = 0
+        left  = 0
+        right = m-1
+        bottom = n-1
+        count = 0
+        res = []
+
+        while left <= right and top <= bottom and count <= m * n:
+
+
+            for i in range(left, right+1):
+                if count < m *n:
+                    res.append(matrix[top][i])
+                    count+=1
+            
+            top +=1
+
+            for i in range(top, bottom+1):
+                if count < m * n:
+                    res.append(matrix[i][right])
+                    count+=1
+            
+            right -= 1
+
+            for i in range(right, left-1, -1):
+                if count < m * n:
+                    res.append(matrix[bottom][i])
+                    print(matrix[bottom][i], "kooko")
+                    count+=1
+            bottom -=1
+
+            for i in range(bottom, top-1,-1):
+                if count < m * n:
+                    res.append(matrix[i][left])
+                    count +=1
+            left+=1
+        
+        return res
+
+
+
+obj = Solution()
+print(obj.spiralOrder([[1, 2, 3], [4, 5, 6], [7, 8, 9]]))
+
+
+
+
+
+
+
+
+
+
+
+       
