@@ -784,10 +784,60 @@ print(obj.spiralOrder([[1, 2, 3], [4, 5, 6], [7, 8, 9]]))
 
 
 
+from collections import deque
+
+class Solution:
+    def dfsOfGraph(self, V, edges):
+        adj_list = [[] for _ in range(V)]
+        visited = [False] * V
+        res = []
+
+        for first, second in edges:
+            adj_list[first].append(second)
+            adj_list[second].append(first)
 
 
+        def dfs(node, adj_list, visited, res):
+
+            visited[node] = True
+            res.append(node)
+
+            for it in adj_list[node]:
+                if not visited[it]:
+                    dfs(it, adj_list, visited, res)
+        
+        dfs(0, adj_list, visited, res)
+        return res
 
 
+    def bfsOfGraph(self, V, edges):
+        adj_list = [[] for _ in range(V)]
+        visited = [False] * V
+        res = []
+
+        for first, second in edges:
+            adj_list[first].append(second)
+            adj_list[second].append(first)
+        
+        queue = deque([0])
+        visited[0] = True
+
+        while queue:
+            node = queue.popleft()
+            res.append(node)
+
+            for it in adj_list[node]:
+                if not visited[it]:
+                    visited[it] = True
+                    queue.append(it)
+        return res
+    
+obj = Solution()
+
+# Input: V = 5, edges = [ [0, 1], [0, 2], [0, 3], [2, 4] ]
+
+# Output:[0, 2, 4, 3, 1], [0, 2, 3, 1, 4] 
 
 
-       
+print(obj.dfsOfGraph(5, [[0, 1], [0, 2], [0, 3], [2, 4]]))
+ 
